@@ -3,7 +3,7 @@
     $username="root";
     $password="";
     $database="users";
-
+    
     $connect = mysqli_connect("localhost", $username, $password, $database);
 
     $id = $_POST['id'];
@@ -14,13 +14,14 @@
     $rol = $_POST['rol'];
     $active = $_POST['active'];
 
-    var_dump($connect);
+    // var_dump($connect);
     if(!$connect){
         echo "Error de conexión: " . mysqli_connect_error();
     }
     else{
         $query = "INSERT INTO `user`(`user_id`, `name`, `surname`, `password`, `email`, `rol`, `active`) VALUES ('$id','$name','$surname','$password','$email','$rol','$active')";
         $user = mysqli_query($connect, $query);
+        echo "Carga de datos completa";
     }
 
     mysqli_close($connect);

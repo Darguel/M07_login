@@ -1,5 +1,7 @@
 <?php 
-
+    $username="root";
+    $password="";
+    $database="users";
     $connect = mysqli_connect("localhost", $username, $password, $database);
     if(!$connect){
         echo "Error de conexión: " . mysqli_connect_error();
