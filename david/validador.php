@@ -39,15 +39,15 @@
         
                     echo "<h3>Lista de usuarios en la base de datos:</h3>";
                     
-                    if ($result && mysqli_num_rows($result) > 0) {
-                        $usuaris = array();
+                    if ($resultado && mysqli_num_rows($resultado) > 0) {
+                        $usuarios = array();
                         while ($row = mysqli_fetch_assoc($resultado)) {
-                            $usuaris[] = $row;
+                            $usuarios[] = $row;
                         }
                         
-                        foreach ($usuaris as $usuari) {
-                            $name = $usuari['name'];
-                            $surname = $usuari['surname'];
+                        foreach ($usuarios as $usuario) {
+                            $name = $usuario['name'];
+                            $surname = $usuario['surname'];
                             echo "Nombre del usuario: $name $surname <br>";
                         }
                     }
