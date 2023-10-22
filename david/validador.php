@@ -19,7 +19,7 @@
             $query = "SELECT email, password, rol, name, surname FROM user WHERE email = '$mail' AND password = '$password'";
             $resultado = mysqli_query($connect, $query);
         
-            if ($resultado && mysqli_num_rows($resultado) >= 0) {
+            if ($resultado && mysqli_num_rows($resultado) > 0) {
                 $row = mysqli_fetch_assoc($resultado);
 
                 $rol = $row['rol'];
@@ -27,7 +27,7 @@
                 $surname = $row['surname'];
                 
                 if ($rol == 'alumnat') {
-                    echo "Soy un alumno <br>";
+                    echo "Soy un alumno";
                     echo "Nombre: $name <br>";
                     echo "Apellido: $surname <br>";
                     echo "Correo: $mail <br>";
@@ -39,21 +39,25 @@
         
                     echo "<h3>Lista de usuarios en la base de datos:</h3>";
                     
-                    while ($row = mysqli_fetch_assoc($resultado)) {
-                        $usuaris[] = $row;
-                    }
-                    
-                    foreach ($usuaris as $usuari) {
-                        $name = $usuari['name'];
-                        $surname = $usuari['surname'];
-                        echo "Nombre del usuario: $name $surname <br>";
+                    if ($result && mysqli_num_rows($result) > 0) {
+                        $usuaris = array();
+                        while ($row = mysqli_fetch_assoc($resultado)) {
+                            $usuaris[] = $row;
+                        }
+                        
+                        foreach ($usuaris as $usuari) {
+                            $name = $usuari['name'];
+                            $surname = $usuari['surname'];
+                            echo "Nombre del usuario: $name $surname <br>";
+                        }
                     }
                 }
                 else{
                     include "login.html";
                     echo "No estas registrado";
                 }
-            } else {
+            } 
+            else {
                 include "login.html";
                 echo "Las credenciales de inicio de sesion son incorrectas";
             }
