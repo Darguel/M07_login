@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,47 +20,21 @@
 
         try {
 
-            $query = "SELECT email, password, rol, name, surname FROM user WHERE email = '$mail' AND password = '$password'";
+            $query = "SELECT user_id, email, password, rol, name, surname FROM user WHERE email = '$mail' AND password = '$password'";
             $resultado = mysqli_query($connect, $query);
         
             if ($resultado && mysqli_num_rows($resultado) > 0) {
                 $row = mysqli_fetch_assoc($resultado);
 
-                $rol = $row['rol'];
-                $name = $row['name'];
-                $surname = $row['surname'];
+                $_SESSION['rol'] = $row['rol'];
+                $_SESSION['name'] = $row['name'];
+                $_SESSION['user_id'] = $row['user_id'];
+                $_SESSION['loggedIn'] = true;
                 
-                if ($rol == 'alumnat') {
-                    echo "Soy un alumno";
-                    echo "Nombre: $name <br>";
-                    echo "Apellido: $surname <br>";
-                    echo "Correo: $mail <br>";
-                } 
-                elseif ($rol == 'professorat') {
-                    echo "Hola " . $name . ", eres profesora!!";
-                    $query = "SELECT name, surname FROM user";
-                    $resultado = mysqli_query($connect, $query);
-        
-                    echo "<h3>Lista de usuarios en la base de datos:</h3>";
-                    
-                    if ($resultado && mysqli_num_rows($resultado) > 0) {
-                        $usuarios = array();
-                        while ($row = mysqli_fetch_assoc($resultado)) {
-                            $usuarios[] = $row;
-                        }
-                        
-                        foreach ($usuarios as $usuario) {
-                            $name = $usuario['name'];
-                            $surname = $usuario['surname'];
-                            echo "Nombre del usuario: $name $surname <br>";
-                        }
-                    }
-                }
-                else{
-                    include "login.html";
-                    echo "No estas registrado";
-                }
-            } 
+                
+                header ('Location: index.php');
+                
+            }
             else {
                 include "login.html";
                 echo "Las credenciales de inicio de sesion son incorrectas";
