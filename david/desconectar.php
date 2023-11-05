@@ -2,6 +2,6 @@
 
     $_SESSION['loggedIn'] = false;
     session_destroy();
-    header ('Location: login.php');
+    header ('Location: login.html');
 
 ?>
